@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Yahtzee</title>
+        <link rel="stylesheet" href="struttura.css">
+        <link rel="stylesheet" href="stile.css">
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+      <div class="container">
+      <nav>
+        <div class="nav-left">
+          <div class="circles-col">
+            <div class="circle red"  onclick="cambiaTema(this)"></div>
+            <div class="circle green"  onclick="cambiaTema(this)"></div>
+            <div class="circle blue"  onclick="cambiaTema(this)"></div>
+            <div class="circle yellow"  onclick="cambiaTema(this)"></div>
+          </div>
+          <div class="image-grid">
+            <img src="img/dado/W1.svg" onclick="cambiaDado(this)" id="W" alt="1">
+            <img src="img/dado/B2.svg" onclick="cambiaDado(this)" id="B" alt="2">
+            <img src="img/dado/R3.svg" onclick="cambiaDado(this)" id="R" alt="3">
+            <img src="img/dado/V4.svg" onclick="cambiaDado(this)" id="V" alt="4">
+          </div>
+        </div>
+
+        <div class="nav-center">
+          <a class="title" id="Titolo">Yahtzee</a>
+        </div>
+
+        <div class="nav-right"></div>
+      </nav>
+
+        <main class="content">
+          <div class="dice">
+            <div class="diceBox">
+              <h2 id="textGiocatore">Giocatore 1</h2>
+              <h1 class="background-number" id="numeroSfondo">00</h1>
+              <div class="roll">
+                <div class="info" id="info">Lancia per iniziare, rimanenti: 3</div>
+                <div class="dice-img">
+                  <img id="d1" src="img/dado/W1.svg" onclick="fissa(this)">
+                  <img id="d2" src="img/dado/W2.svg" onclick="fissa(this)">
+                  <img id="d3" src="img/dado/W3.svg" onclick="fissa(this)">
+                  <img id="d4" src="img/dado/W4.svg" onclick="fissa(this)">
+                  <img id="d5" src="img/dado/W5.svg" onclick="fissa(this)">
+                </div>
+                <input type="button" id="lancioDadi" value="Lancia" onclick="lanciaDadi()">
+                <input type="button" id="saltaTurno" value="Salta" onclick="saltaTurno()">
+            </div>
+            </div>
+          </div>
+          <div class="table">
+          <table>
+            <tr>
+              <td></td>
+              <td>P1</td>
+              <td>P2</td>
+            </tr>
+            <tr>
+              <td>Uno</td>
+              <td id="uno-p1" onclick="segnaPunteggio(this)">0</td>
+              <td id="uno-p2" onclick="segnaPunteggio(this)">0</td>
+            </tr>
+            <tr>
+              <td>Due</td>
+              <td id="due-p1" onclick="segnaPunteggio(this)">0</td>
+              <td id="due-p2" onclick="segnaPunteggio(this)">0</td>
+            </tr>
+            <tr>
+              <td>Tre</td>
+              <td id="tre-p1" onclick="segnaPunteggio(this)">0</td>
+              <td id="tre-p2" onclick="segnaPunteggio(this)">0</td>
+            </tr>
+            <tr>
+              <td>Quattro</td>
+              <td id="quattro-p1" onclick="segnaPunteggio(this)">0</td>
+              <td id="quattro-p2" onclick="segnaPunteggio(this)">0</td>
+            </tr>
+            <tr>
+              <td>Cinque</td>
+              <td id="cinque-p1" onclick="segnaPunteggio(this)">0</td>
+              <td id="cinque-p2" onclick="segnaPunteggio(this)">0</td>
+            </tr>
+            <tr>
+              <td>Sei</td>
+              <td id="sei-p1" onclick="segnaPunteggio(this)">0</td>
+              <td id="sei-p2" onclick="segnaPunteggio(this)">0</td>
+            </tr>
+            <tr>
+              <td>Coppia</td>
+              <td id="coppia-p1" onclick="segnaPunteggio(this)">0</td>
+              <td id="coppia-p2" onclick="segnaPunteggio(this)">0</td>
+            </tr>
+            <tr>
+              <td>Doppia Coppia</td>
+              <td id="doppiacoppia-p1" onclick="segnaPunteggio(this)">0</td>
+              <td id="doppiacoppia-p2" onclick="segnaPunteggio(this)">0</td>
+            </tr>
+            <tr>
+              <td>Tris</td>
+              <td id="tris-p1" onclick="segnaPunteggio(this)">0</td>
+              <td id="tris-p2" onclick="segnaPunteggio(this)">0</td>
+            </tr>
+            <tr>
+              <td>Poker</td>
+              <td id="poker-p1" onclick="segnaPunteggio(this)">0</td>
+              <td id="poker-p2" onclick="segnaPunteggio(this)">0</td>
+            </tr>
+            <tr>
+              <td>Full</td>
+              <td id="full-p1" onclick="segnaPunteggio(this)">0</td>
+              <td id="full-p2" onclick="segnaPunteggio(this)">0</td>
+            </tr>
+            <tr>
+              <td>Chance</td>
+              <td id="chance-p1" onclick="segnaPunteggio(this)">0</td>
+              <td id="chance-p2" onclick="segnaPunteggio(this)">0</td>
+            </tr>
+            <tr>
+              <td>Scala</td>
+              <td id="scala-p1" onclick="segnaPunteggio(this)">0</td>
+              <td id="scala-p2" onclick="segnaPunteggio(this)">0</td>
+            </tr>
+            <tr>
+              <td>Yahtzee</td>
+              <td id="yahtzee-p1" onclick="segnaPunteggio(this)">0</td>
+              <td id="yahtzee-p2" onclick="segnaPunteggio(this)">0</td>
+            </tr>
+          </table>
+          </div>
+          <div class="rules">
+            <div class="textBox">
+              <h1>Regolamento:</h1>
+              <p>Lo Yahtzee è un gioco di dadi basato sul punteggio. Si gioca con <strong>5 dadi</strong> e l'obiettivo è completare tutta la tabella prima del tuo avversario.</p>
+
+              <h3>1. Svolgimento del Turno</h3>
+              <p>In ogni turno, un giocatore può lanciare i dadi fino a <strong>3 volte</strong>:</p>
+              <ul>
+                  <li><strong>Primo lancio:</strong> Si lanciano tutti i 5 dadi.</li>
+                  <li><strong>Secondo e terzo lancio:</strong> Il giocatore può scegliere di tenere alcuni dadi e lanciare nuovamente gli altri per cercare di ottenere una combinazione migliore.</li>
+              </ul>
+              <p>Alla fine dei tre lanci (o prima, se sei soddisfatto della combinazione ottenuta), il giocatore <strong>deve</strong> segnare un punteggio in una delle caselle libere della sua tabella.</p>
+              <p>Il punteggio, per essere segnato, <strong>deve</strong> essere superiore a 0. Se non ci sono caselle disponibili in cui segnare il punteggio, puoi cliccare sul tasto "salta" per passare il turno all'avversario. </p>
+              <h3>2. Punteggi</h3>
+              <ul>
+                  <li><strong>da 1 a 6: </strong> si sommano i dadi di valore corrispettivo a quello selezionato (es. 4 -> somma tutti i 4 nella combinazione).</li>
+                  <li><strong>Coppia: </strong>Somma la miglior coppia di dadi nella combinazione.</li>
+                  <li><strong>Doppia coppia: </strong>Somma i dadi che formano le 2 coppie nella combinazione.</li>
+                  <li><strong>Tris: </strong>Somma dei 3 dadi uguali.</li>
+                  <li><strong>Poker: </strong>Somma dei 4 dadi uguali.</li>
+                  <li><strong>Full: </strong>25 punti (tris + coppia)</li>
+                  <li><strong>Scala: </strong>40 punti (5 dadi in fila: 12345 o 23456).</li>
+                  <li><strong>Yahtzee: </strong>50 punti (5 dadi uguali).</li>
+              </ul>
+              <h3>3. Fine del Gioco</h3>
+              <p>Vince il primo che riesce a riempire <strong>tutte le caselle</strong> della propria colonna. Se nello stesso turno entrambi i giocatori terminano la tabella, vince chi totalizza il <strong>punteggio maggiore</strong>.</p>
+            </div>
+          </div>
+        </main>
+      </div>
+      <footer>
+        <div id="autore">Mattia Bittante</div>
+        <p id="copyright">&copy; 2026 Yahtzee. Tutti i diritti riservati.</p>
+      </footer>
+
+      <div id="vittoria-overlay" class="overlay">
+        <div class="vittoria-panel">
+            <h1 id="vittoria-titolo">Vittoria!</h1>
+            <p id="vittoria-messaggio">Il giocatore 1 ha vinto la partita.</p>
+            <div class="vittoria-punti">
+                Punteggio Finale: <span id="vittoria-punteggio">00</span>
+            </div>
+            <button onclick="window.location.reload()" class="btn-nuova-partita">Nuova Partita</button>
+        </div>
+      </div>
+
+      <script>
+        const NUM_DADI = 5;
+        const FACCE_DADO = 6;
+        const MIN_DADO = 6;
+        const ELEMENTI_TAB = 14;
+        const T_LANCIO = 1000;
+        const VEL_ANIMAZIONE_DADI = 50;
+        const P_FULL = 25;
+        const P_SCALA = 40;
+        const P_YATHZEE = 50;
+
+        let coloreDado = "W";
+
+        let staLanciando = false; //evita accessi contemporanei
+        let lanciDisp = 3;
+        let giocatore = 1; //turno del giocatore
+        let dadi = [0,0,0,0,0] //salvo il valore dei dadi;
+        let pP1 = 0;
+        let pP2 = 0;
+        let cP1 = 0; // c = numero caselle riempite
+        let cP2 = 0; 
+        //elenco id categorie
+        const categoria = 
+        [
+          "uno", "due", "tre", "quattro", "cinque", "sei", 
+          "coppia", "doppiacoppia", "tris", "poker", 
+          "full", "chance", "scala", "yahtzee"
+        ];
+
+        function lanciaDadi()
+        {
+          if(!staLanciando)
+          {
+            staLanciando=true;
+            let x = setInterval(lancio,VEL_ANIMAZIONE_DADI);
+            setTimeout(() => { //animazione lancio dadi
+                clearInterval(x);
+                lancio();      
+                staLanciando = false; 
+                calcolaPunteggi(giocatore);
+                lanciDisp--;
+                document.getElementById("info").innerText= "premi i dadi da bloccare, rimanenti: " + lanciDisp;
+                //fine lanci
+                if(lanciDisp == 0)
+                {
+                  document.getElementById("lancioDadi").setAttribute("disabled","")
+                  for(let i=0; i<NUM_DADI; i++){
+                    let dado = document.getElementById("d" + (i+1));
+                    if(dado.classList.contains("selected")) dado.classList.remove("selected")
+                  }
+                }
+            }, T_LANCIO);
+          }
+        }
+
+        function lancio(){
+          for(let i=0; i<NUM_DADI; i++){
+            let dado = document.getElementById("d" + (i+1));
+            if(!dado.classList.contains("selected")) //blocco le selezionate
+            {
+              let d = Math.floor(Math.random()*FACCE_DADO)+1;
+              dadi[i] = d;
+              let percorso = "img/dado/" + coloreDado + (d) + ".svg"
+              document.getElementById("d"+ (i+1)).src = percorso;
+            }
+          }
+        }
+
+        function fissa(x){
+          //se hai già lanciato e hai ancora lanci a disposizione puoi fissare
+          if(lanciDisp<3 && lanciDisp>0) 
+            x.classList.toggle("selected"); //attiva/disattiva la classe selected
+        }
+
+        function calcolaPunteggi(p)
+        {
+          let rip = [0,0,0,0,0,0];
+
+          //Conto ripetizioni
+          for(let i=0; i<NUM_DADI; i++)
+          {
+            if(dadi[i] == 1) rip[0]++;
+            if(dadi[i] == 2) rip[1]++;
+            if(dadi[i] == 3) rip[2]++;
+            if(dadi[i] == 4) rip[3]++;
+            if(dadi[i] == 5) rip[4]++;
+            if(dadi[i] == 6) rip[5]++;
+          }
+          
+          let tris = 0;
+          let poker = 0;
+          let coppia = false;
+          let contaCoppie = 0;
+          let maxCoppia = 0;
+          let sommaCoppie = 0;
+          let sommaDadi = 0;
+          let yahtzee = 0;
+          let full = 0;
+          let scala = 0;
+          let conta0 = 0;
+
+          for (let i=0; i<FACCE_DADO; i++) 
+          {
+            if (rip[i] >= 2) 
+            {
+              coppia = true;
+              contaCoppie++;
+              maxCoppia = (i+1)*2;
+              sommaCoppie += maxCoppia;
+            }
+            if (rip[i] >= 3) tris = (i+1)*3;
+            if (rip[i] >= 4) poker = (i+1)*4;
+            if (rip[i] == 5) yahtzee = P_YATHZEE;
+            sommaDadi += (i+1)*rip[i];
+          }
+          if(contaCoppie != 2) sommaCoppie = 0;
+          if(rip.includes(2) && rip.includes(3)) full = P_FULL;
+          if((rip[0] && rip[1] && rip[2] && rip[3] && rip[4]) || (rip[1] && rip[2] && rip[3] && rip[4] && rip[5])) scala = P_SCALA;
+          
+
+          for(let i=0; i<FACCE_DADO; i++)
+          {
+            let cella = document.getElementById(categoria[i] + "-p" + giocatore);
+            if (!cella.classList.contains("bloccato")) cella.innerText = rip[i]*(i+1);
+          };
+
+          //COPPIA
+          if(!document.getElementById("coppia-p" + giocatore).classList.contains("bloccato")) document.getElementById("coppia-p" + giocatore).innerText = maxCoppia;
+
+          //DOPPIA COPPIA
+          if(!document.getElementById("doppiacoppia-p" + giocatore).classList.contains("bloccato")) document.getElementById("doppiacoppia-p" + giocatore).innerText = sommaCoppie;
+
+          //TRIS
+          if(!document.getElementById("tris-p" + giocatore).classList.contains("bloccato")) document.getElementById("tris-p" + giocatore).innerText = tris;
+          
+          //POKER
+          if(!document.getElementById("poker-p" + giocatore).classList.contains("bloccato"))document.getElementById("poker-p" + giocatore).innerText = poker;
+          
+          //FULL
+          if(!document.getElementById("full-p" + giocatore).classList.contains("bloccato")) document.getElementById("full-p" + giocatore).innerText = full;
+
+          //CHANCE
+          if(!document.getElementById("chance-p" + giocatore).classList.contains("bloccato")) document.getElementById("chance-p" + giocatore).innerText = sommaDadi;
+
+          //SCALA
+          if(!document.getElementById("scala-p" + giocatore).classList.contains("bloccato")) document.getElementById("scala-p" + giocatore).innerText = scala;
+
+          //YAHTZEE
+          if(!document.getElementById("yahtzee-p" + giocatore).classList.contains("bloccato")) document.getElementById("yahtzee-p" + giocatore).innerText = yahtzee;
+        }
+
+        function segnaPunteggio(x)
+        {
+          //uscita se non è il proprio turno
+          if((x.id.includes("1") && giocatore != 1) || (x.id.includes("2") && giocatore != 2))
+          return;
+
+          //uscita se si seleziona una combinazione non valida
+          if(x.innerText == "0")
+          return;
+
+          g = document.getElementById("textGiocatore");
+
+          if(giocatore == 1) 
+          {
+            pP1 += parseInt(x.innerText);
+            cP1++;
+          }
+          else if(giocatore == 2) 
+          {
+            pP2 += parseInt(x.innerText);
+            cP2++;
+          }
+          x.classList.add("bloccato");
+          x.style.backgroundColor = "var(--main)";
+          x.onclick = null;
+
+          if (cP1 == ELEMENTI_TAB && cP2 != ELEMENTI_TAB - 1) {
+              mostraVittoria(1, pP1);
+          }
+          if (cP2 == ELEMENTI_TAB) {
+              mostraVittoria(2, pP2);
+          }
+          if (cP1 == cP2 && cP1 == ELEMENTI_TAB) {
+              if (pP1 > pP2) mostraVittoria(1, pP1);
+              else mostraVittoria(2, pP2);
+          }
+          //cambio turno
+          lanciDisp = 3;
+          dadi = [1,2,3,4,5];
+          document.getElementById("info").innerText="Lancia per iniziare, rimanenti: 3";
+          pulisciTabella(giocatore);
+
+          for(let i=0; i<NUM_DADI; i++)
+          {
+            let dado = document.getElementById("d" + (i+1));
+            if(dado.classList.contains("selected")) dado.classList.remove("selected");
+          }
+
+          if(giocatore == 2)
+          {
+            giocatore = 1;
+            g.innerText="Giocatore 1";
+            document.getElementById("numeroSfondo").innerText = pP1.toString().padStart(2, '0');
+            if(pP1>100) document.getElementById("numeroSfondo").style.fontSize = "250px";
+            else document.getElementById("numeroSfondo").style.fontSize = "400px";
+          }
+          else
+          {
+            giocatore = 2;
+            g.innerText="Giocatore 2";
+            document.getElementById("numeroSfondo").innerText = pP2.toString().padStart(2, '0');
+            if(pP2>100) document.getElementById("numeroSfondo").style.fontSize = "250px";
+            else document.getElementById("numeroSfondo").style.fontSize = "400px";
+          }
+          document.getElementById("lancioDadi").removeAttribute("disabled");
+        }
+
+        function pulisciTabella(giocatore) 
+        {
+          //per ogni elemento di categoria prendo l'id e se non è bloccato lo resetto
+          for(let i=0; i<categoria.length; i++)
+          {
+            let cella = document.getElementById(categoria[i] + "-p" + giocatore);
+            if (!cella.classList.contains("bloccato")) cella.innerText = 0;
+          };
+        }
+
+        function saltaTurno(){
+          //cambio turno
+          lanciDisp = 3;
+          let dadi = [1,2,3,4,5];
+          let g = document.getElementById("textGiocatore");
+          document.getElementById("info").innerText="Lancia per iniziare, rimanenti: 3";
+          pulisciTabella(giocatore);
+
+          for(let i=0; i<NUM_DADI; i++)
+          {
+            let dado = document.getElementById("d" + (i+1));
+            if(dado.classList.contains("selected")) dado.classList.remove("selected");
+          }
+
+          if(giocatore == 2)
+          {
+            giocatore = 1;
+            g.innerText="Giocatore 1";
+            document.getElementById("numeroSfondo").innerText = pP1.toString().padStart(2, '0'); //per bloccare obbligatoriamente a 2 cifre
+            if(pP1>100) document.getElementById("numeroSfondo").style.fontSize = "250px";
+            else document.getElementById("numeroSfondo").style.fontSize = "400px";
+          }
+          else
+          {
+            giocatore = 2;
+            g.innerText="Giocatore 2";
+            document.getElementById("numeroSfondo").innerText = pP2.toString().padStart(2, '0');
+            if(pP2>100) document.getElementById("numeroSfondo").style.fontSize = "250px";
+            else document.getElementById("numeroSfondo").style.fontSize = "400px";
+          }
+          document.getElementById("lancioDadi").removeAttribute("disabled");
+        }
+
+        function cambiaTema(x) {
+          let coloreScelto = window.getComputedStyle(x).backgroundColor;
+          document.documentElement.style.setProperty('--main', coloreScelto);
+        }
+
+        function cambiaDado(x) {
+          coloreDado = x.id;
+          for(let i=0; i<NUM_DADI; i++)
+        {
+          document.getElementById("d" + (i+1)).src="img/dado/" + coloreDado + (i+1) + ".svg";
+        }
+        }
+
+        function mostraVittoria(vincitore, punti) {
+          document.getElementById("vittoria-titolo").innerText = "Vittoria!";
+          document.getElementById("vittoria-messaggio").innerText = "Il Giocatore " + vincitore + " ha vinto la partita!";
+          document.getElementById("vittoria-punteggio").innerText = punti;
+          
+          // Mostra l'overlay usando flex per centrare
+          document.getElementById("vittoria-overlay").style.display = "flex";
+        }
+      </script>
+    </body>
+</html>
