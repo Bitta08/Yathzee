@@ -32,6 +32,15 @@
     gap: 5px;
 }
 
+/* Riga Cerchi */
+.circles-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 15px;
+    gap: 5px;
+}
+
 .circle {
     width: 15px;
     height: 15px;
@@ -216,7 +225,6 @@ tr:not(:first-child) td:not(:first-child):hover {
     align-items: center;
 }
 
-
 .vittoria-panel {
     background-color: #333;
     padding: 40px;
@@ -245,6 +253,74 @@ tr:not(:first-child) td:not(:first-child):hover {
     color: white;
     border: none;
     padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.Ioverlay {
+    display: flex; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); 
+    z-index: 9999; 
+    justify-content: center;
+    align-items: center;
+}
+
+
+.inizio-panel {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 20px;
+    border: 3px solid var(--main);
+    text-align: center; 
+    color: white;
+    font-family: "IBM Plex Sans", sans-serif;
+    max-width: 400px;
+    width: 90%;
+}
+
+.inizio-panel h1 {
+    color: var(--main);
+    font-size: 3rem;
+}
+
+.dati{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-family: "IBM Plex Sans", sans-serif;
+
+}
+
+.dati input[type="text"] {
+    background-color: #444;
+    border: 2px solid #555;
+    border-radius: 8px;
+    color: white;
+    padding: 4px 6px;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    outline: none;
+}
+
+/* Effetto quando l'utente clicca nel campo per scrivere */
+.dati input[type="text"]:focus {
+    border-color: var(--main);
+    background-color: #555;
+}
+
+.btn-inizio-partita {
+    background-color: var(--main);
+    color: white;
+    border: none;
+    padding: 10px 30px;
     border-radius: 10px;
     font-size: 1.1rem;
     cursor: pointer;

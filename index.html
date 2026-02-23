@@ -55,8 +55,8 @@
           <table>
             <tr>
               <td></td>
-              <td>P1</td>
-              <td>P2</td>
+              <td id="g1">P1</td>
+              <td id="g2">P2</td>
             </tr>
             <tr>
               <td>Uno</td>
@@ -165,6 +165,23 @@
         <p id="copyright">&copy; 2026 Yahtzee. Tutti i diritti riservati.</p>
       </footer>
 
+      <div id="inizio-overlay" class="Ioverlay">
+        <div class="inizio-panel">
+            <h1 id="inizio-titolo">Nuova partita</h1>
+            <div class="dati">
+              <div> P1: <input type="text" value="P1"  id="inizio-p1" maxlength="8"></input></div>
+              <div> P2: <input type="text" value="P2" id="inizio-p2" maxlength="8"></input></div>
+            </div>
+            <div class="circles-row">
+              <div class="circle red"  onclick="cambiaTema(this)"></div>
+              <div class="circle green"  onclick="cambiaTema(this)"></div>
+              <div class="circle blue"  onclick="cambiaTema(this)"></div>
+              <div class="circle yellow"  onclick="cambiaTema(this)"></div>
+          </div>
+            <button onclick="impostazioniIniziali()" class="btn-inizio-partita">Inizia</button>
+        </div>
+      </div>
+      
       <div id="vittoria-overlay" class="overlay">
         <div class="vittoria-panel">
             <h1 id="vittoria-titolo">Vittoria!</h1>
@@ -190,6 +207,7 @@
         let coloreDado = "W";
 
         let staLanciando = false; //evita accessi contemporanei
+        let turnoFinale = false;
         let lanciDisp = 3;
         let giocatore = 1; //turno del giocatore
         let dadi = [0,0,0,0,0] //salvo il valore dei dadi;
@@ -204,6 +222,21 @@
           "coppia", "doppiacoppia", "tris", "poker", 
           "full", "chance", "scala", "yahtzee"
         ];
+
+        function impostazioniIniziali()
+        {
+          p1 = document.getElementById("inizio-p1").value;
+          p2 = document.getElementById("inizio-p2").value;
+          if(p1=="" || p2=="") 
+          {
+            alert("I campi non possono essere vuoti") 
+            return;
+          }
+          document.getElementById("textGiocatore").innerText=p1;
+          document.getElementById("g1").innerText=p1;
+          document.getElementById("g2").innerText=p2;
+          document.getElementById("inizio-overlay").style.display="none";
+        }
 
         function lanciaDadi()
         {
@@ -353,16 +386,26 @@
           x.style.backgroundColor = "var(--main)";
           x.onclick = null;
 
-          if (cP1 == ELEMENTI_TAB && cP2 != ELEMENTI_TAB - 1) {
+          if(turnoFinale && cP2 != ELEMENTI_TAB) mostraVittoria(1,pP1);
+          else if(turnoFinale && cP2 == ELEMENTI_TAB)
+          {
+            if (pP1 > pP2) mostraVittoria(1, pP1);
+            else if(pP1 < pP2) mostraVittoria(2, pP2);
+            else mostraVittoria(0, pP1); //uso 0 per indicare il pareggio (pP1 non necessario in questo caso ma serve come parametro alla funzione).
+          }
+          if (cP1 == ELEMENTI_TAB && cP2 < ELEMENTI_TAB - 1) 
+          {
               mostraVittoria(1, pP1);
           }
-          if (cP2 == ELEMENTI_TAB) {
+          else if (cP1 == ELEMENTI_TAB && cP2 == ELEMENTI_TAB - 1) 
+          {
+              turnoFinale = true;
+          }
+          else if (cP2 == ELEMENTI_TAB && cP1 < ELEMENTI_TAB) 
+          {
               mostraVittoria(2, pP2);
           }
-          if (cP1 == cP2 && cP1 == ELEMENTI_TAB) {
-              if (pP1 > pP2) mostraVittoria(1, pP1);
-              else mostraVittoria(2, pP2);
-          }
+
           //cambio turno
           lanciDisp = 3;
           dadi = [1,2,3,4,5];
@@ -378,7 +421,7 @@
           if(giocatore == 2)
           {
             giocatore = 1;
-            g.innerText="Giocatore 1";
+            g.innerText=p1;
             document.getElementById("numeroSfondo").innerText = pP1.toString().padStart(2, '0');
             if(pP1>100) document.getElementById("numeroSfondo").style.fontSize = "250px";
             else document.getElementById("numeroSfondo").style.fontSize = "400px";
@@ -386,7 +429,7 @@
           else
           {
             giocatore = 2;
-            g.innerText="Giocatore 2";
+            g.innerText=p2;
             document.getElementById("numeroSfondo").innerText = pP2.toString().padStart(2, '0');
             if(pP2>100) document.getElementById("numeroSfondo").style.fontSize = "250px";
             else document.getElementById("numeroSfondo").style.fontSize = "400px";
@@ -407,7 +450,7 @@
         function saltaTurno(){
           //cambio turno
           lanciDisp = 3;
-          let dadi = [1,2,3,4,5];
+          dadi = [1,2,3,4,5];
           let g = document.getElementById("textGiocatore");
           document.getElementById("info").innerText="Lancia per iniziare, rimanenti: 3";
           pulisciTabella(giocatore);
@@ -421,7 +464,7 @@
           if(giocatore == 2)
           {
             giocatore = 1;
-            g.innerText="Giocatore 1";
+            g.innerText=p1;
             document.getElementById("numeroSfondo").innerText = pP1.toString().padStart(2, '0'); //per bloccare obbligatoriamente a 2 cifre
             if(pP1>100) document.getElementById("numeroSfondo").style.fontSize = "250px";
             else document.getElementById("numeroSfondo").style.fontSize = "400px";
@@ -429,7 +472,7 @@
           else
           {
             giocatore = 2;
-            g.innerText="Giocatore 2";
+            g.innerText=p2;
             document.getElementById("numeroSfondo").innerText = pP2.toString().padStart(2, '0');
             if(pP2>100) document.getElementById("numeroSfondo").style.fontSize = "250px";
             else document.getElementById("numeroSfondo").style.fontSize = "400px";
@@ -450,10 +493,21 @@
         }
         }
 
-        function mostraVittoria(vincitore, punti) {
-          document.getElementById("vittoria-titolo").innerText = "Vittoria!";
-          document.getElementById("vittoria-messaggio").innerText = "Il Giocatore " + vincitore + " ha vinto la partita!";
-          document.getElementById("vittoria-punteggio").innerText = punti;
+        function mostraVittoria(vincitore, punti) 
+        {
+          if(vincitore == 0)
+          {
+            document.getElementById("vittoria-titolo").innerText = "Pareggio!";
+            document.getElementById("vittoria-messaggio").innerText = "Parità, gioca ancora per decretare il vero vincitore!";
+            document.getElementById("vittoria-punteggio").innerText = punti;          
+          }
+          else
+          {
+            document.getElementById("vittoria-titolo").innerText = "Vittoria!";
+            if(vincitore == 1) document.getElementById("vittoria-messaggio").innerText = p1 + " ha vinto la partita!";
+            else if(vincitore == 2) document.getElementById("vittoria-messaggio").innerText = p2 + " ha vinto la partita!";
+            document.getElementById("vittoria-punteggio").innerText = punti;
+          }
           
           // Mostra l'overlay usando flex per centrare
           document.getElementById("vittoria-overlay").style.display = "flex";
