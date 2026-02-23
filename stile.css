@@ -154,15 +154,6 @@
     font-family: "IBM Plex Sans", sans-serif;
 }
 
-#saltaTurno{
-    width:100px;
-    padding: 10px;
-    border: none;
-    border-radius: 10px;
-    background-color: var(--main);
-    font-family: "IBM Plex Sans", sans-serif;
-}
-
 #lancioDadi:disabled {
     background-color: #cccccc; 
     color: #666666;
